@@ -23,6 +23,7 @@ The training data has 2390491 entries.
 This repository contains the following predictive models:
 
 - Keras Long-Short Term Memory (LSTM) model
+- Keras Multi-layer Perceptron (MLP) model
 
 ### Keras LSTM model
 
@@ -58,6 +59,32 @@ The poor performance might be due to the very short time between each data point
 This LSTM approach was also much more resource-intensive than simpler approaches, due to the windowing of the data increasing the size of the data processed by a factor of the lookback value and the complexity of an LSTM model relative to a MLP. This limited the amount of tuning and epochs I could run due to Kaggle Notebooks' computing limitations.
 
 Ultimately, I conclude that the model, as it is, is ill-suited for this problem.
+
+### Keras MLP model
+
+#### Introduction
+
+After the poor performance of the LSTM model, I decided it will be best to avoid looking back through the data and returning to the basics. This is a **Multi-layer Perceptron (MLP)** model. With 131 features in the dataset, a basic MLP should have reasonable performance despite its simplicity and inability to take time into account.
+
+#### Model Architecture
+
+The model architecture is as follows:
+
+- Input [Input Layer, Batch Normalization, Dropout]
+- Dense (256 units, Swish Activation) [Dense, Batch Normalization, Activation, Dropout]
+- Dense (512 units, Swish Activation) [Dense, Batch Normalization, Activation, Dropout]
+- Dense (256 units, Swish Activation) [Dense, Batch Normalization, Activation, Dropout]
+- Output (5 units, Sigmoid Activation) [Dense, Activation]
+
+The optimizer used was Adam, the loss was Binary-Crossentropy and the metrics used were AUC-ROC and accuracy. Label smoothing and early stopping were also used.
+
+The model was trained for 50 epochs, with early stopping at epoch 24.
+
+#### Results and Observations
+
+Compared to the previous LSTM model, this MLP model had a much better performance. While the accuracy of the model is comparable at 15-30%, the AUC-ROC is consistently more than 0.56, indicating that the model has significantly more distinguishing power than the LSTM model. Despite the inability to look back into past data, it seems that the 131 features provide enough data to produce a good prediction of returns.
+
+Sometimes the basic approach is best.
 
 ## License
 
