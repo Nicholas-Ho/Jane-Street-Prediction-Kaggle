@@ -72,17 +72,17 @@ The model architecture is as follows:
 
 - Input [Input Layer, Batch Normalization, Dropout]
 - Dense (256 units, Swish Activation) [Dense, Batch Normalization, Activation, Dropout]
-- Dense (512 units, Swish Activation) [Dense, Batch Normalization, Activation, Dropout]
+- Dense (256 units, Swish Activation) [Dense, Batch Normalization, Activation, Dropout]
 - Dense (256 units, Swish Activation) [Dense, Batch Normalization, Activation, Dropout]
 - Output (5 units, Sigmoid Activation) [Dense, Activation]
 
 The optimizer used was Adam, the loss was Binary-Crossentropy and the metrics used were AUC-ROC and accuracy. Label smoothing and early stopping were also used.
 
-The model was trained for 50 epochs, with early stopping at epoch 24.
+The model was trained for 50 epochs, with early stopping at epoch 21.
 
 #### Results and Observations
 
-Compared to the previous LSTM model, this MLP model had a much better performance. While the accuracy of the model is comparable at 15-30%, the AUC-ROC is consistently more than 0.56, indicating that the model has significantly more distinguishing power than the LSTM model. Despite the inability to look back into past data, it seems that the 131 features provide enough data to produce a good prediction of returns.
+Compared to the previous LSTM model, this MLP model had a much better performance. While the accuracy of the model is comparable at 15-30%, the AUC-ROC is consistently higher than 0.56, indicating that the model has significantly more distinguishing power than the LSTM model. Despite the inability to look back into past data, it seems that the 131 features provide enough data to produce a good prediction of returns.
 
 Sometimes the basic approach is best.
 
